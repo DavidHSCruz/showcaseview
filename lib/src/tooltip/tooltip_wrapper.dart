@@ -171,7 +171,8 @@ class _ToolTipWrapperState extends State<ToolTipWrapper>
     // but won't happen in general cases
     if (box == null || !box.attached) return const SizedBox.shrink();
 
-    final targetPosition = box.localToGlobal(Offset.zero);
+    final targetPosition = box.localToGlobal(Offset.zero,
+        ancestor: widget.showcaseController.rootRenderObject);
     final targetSize = box.size;
 
     final defaultToolTipWidget = widget.container != null
@@ -245,9 +246,7 @@ class _ToolTipWrapperState extends State<ToolTipWrapper>
         gapBetweenContentAndAction:
             widget.tooltipActionConfig.gapBetweenContentAndAction,
         screenEdgePadding: widget.toolTipMargin,
-        showcaseOffset: widget.showcaseController.rootRenderObject
-                ?.localToGlobal(Offset.zero) ??
-            Offset.zero,
+        showcaseOffset: Offset.zero,
         targetTooltipGap: widget.targetTooltipGap,
         children: [
           // We have to use UniqueKey here to avoid the issue with the
